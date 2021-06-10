@@ -293,7 +293,9 @@ def plot_data(data_lists, data_names, title, circle=False):
                    [dataPoints[1] for dataPoints in data_lists[i]],
                    color=colors[i],
                    label=data_names[i])
-    plt.show()
+
+    FileService.create_folder_if_not_exist('./static/plots/')
+    plt.savefig('./static/plots/' + title, dpi=300, bbox_inches='tight')
     return
 
 
