@@ -363,18 +363,19 @@ async def plot_data_from_urls(data_url, cluster_mapping_url, k):
     plot(data, data_preprocessed, cluster_mapping, k)
 
 
-async def main():
+async def main_async(
+    k=2,
+    job_id=1,
+    eps=0.001,
+    max_runs=10,
+    data_url='https://raw.githubusercontent.com/UST-QuAntiL/QuantME-UseCases/master/2021-icws/data/embedding.txt',
+    backend_name = 'aer_qasm_simulator',
+    token = '',
+):
     """
     This method tests the entire workflow within a python script.
     """
 
-    k = 2
-    job_id = 1
-    eps = 0.001
-    max_runs = 10
-    data_url = 'https://raw.githubusercontent.com/UST-QuAntiL/QuantME-UseCases/master/2021-icws/data/embedding.txt'
-    backend_name = 'aer_qasm_simulator'
-    token = ""
     print('Starting test script...')
 
     old_centroids_path = await initialize_centroids(job_id, k)
@@ -403,5 +404,17 @@ async def main():
     await plot_data_from_urls(data_url, cluster_mapping_path, k)
 
 
+def main(
+    k=2,
+    job_id=1,
+    eps=0.001,
+    max_runs=10,
+    data_url='https://raw.githubusercontent.com/UST-QuAntiL/QuantME-UseCases/master/2021-icws/data/embedding.txt',
+    backend_name = 'aer_qasm_simulator',
+    token = '',
+):
+    asyncio.run(main_async(k=k, job_id=job_id, eps=eps, max_runs=max_runs, data_url=data_url, backend_name=backend_name, token=token))
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
